@@ -2,12 +2,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient } from "mongodb";
 
-const uri = process.env.MONGODB_URI;
+const uri: string = process.env.MONGODB_URI!;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
+interface MarketData {
+  // define the properties of the market data object
+  // for example:
+  symbol: string;
+  price: number;
+  volume: number;
+}
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     await client.connect();
@@ -17,16 +23,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "POST") {
       // Upload market data
-      const { data } = req.body;
+      const { symbol, price, volume } = req.body as MarketData;
       await collection.updateOne(
-        { _id: "market_data" },
-        { $set: { data: data } },
+        { _id: symbol },
+        { $set: { price, volume } },
         { upsert: true }
       );
-      res.status(200).json({ message: "Market data uploaded" });
+      res.status(200).json({ message: `Market data for ${symbol} uploaded` });
     } else if (req.method === "GET") {
       // Retrieve market data
-      const result = await collection.findOne({ _id: "market_data" });
+      const { symbol } = req.query;
+      const result = await collection.findOne({ _id: symbol });
       res.status(200).json(result ? result.data : {});
     } else {
       res.setHeader("Allow", ["POST", "GET", "PUT"]);
