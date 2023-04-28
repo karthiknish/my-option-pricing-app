@@ -152,7 +152,6 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-center text-4xl font-bold">Option Pricing</h1>
-
       {/* Upload market data */}
       <div className="glass my-4">
         <h2 className="text-2xl font-bold">Enter Market Data (JSON format)</h2>
@@ -168,7 +167,7 @@ export default function Home() {
           Upload Market Data
         </button>
       </div>
-      {/* Get market data */}
+      {/* Get market data */}{" "}
       <div className="glass my-4">
         <button
           onClick={handleGetMarketData}
@@ -180,7 +179,6 @@ export default function Home() {
           {displayMarketData()}
         </pre>
       </div>
-
       {/* Upload calibration data */}
       <div className="glass my-4">
         <h2 className="text-2xl font-bold">
@@ -198,7 +196,6 @@ export default function Home() {
           Upload Calibration Data
         </button>
       </div>
-
       {/* Upload contract and run */}
       <div className="glass my-4">
         <h2 className="text-2xl font-bold">
@@ -216,7 +213,6 @@ export default function Home() {
           Upload Contract and Run
         </button>
       </div>
-
       {/* Calculate PV */}
       <div className="glass my-4">
         <button
