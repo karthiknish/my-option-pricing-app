@@ -3,13 +3,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient } from "mongodb";
 
 const uri: string = process.env.MONGODB_URI!;
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(uri);
+
 interface MarketData {
-  // define the properties of the market data object
-  // for example:
+  _id: string;
   symbol: string;
   price: number;
   volume: number;
@@ -23,17 +20,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "POST") {
       // Upload market data
-      const { symbol, price, volume } = req.body as MarketData;
+      const { _id, symbol, price, volume } = req.body as MarketData;
       await collection.updateOne(
-        { _id: symbol },
-        { $set: { price, volume } },
+        { _id: new Object(_id) },
+        { $set: { symbol, price, volume } },
         { upsert: true }
       );
       res.status(200).json({ message: `Market data for ${symbol} uploaded` });
     } else if (req.method === "GET") {
       // Retrieve market data
       const { symbol } = req.query;
-      const result = await collection.findOne({ _id: symbol });
+      const result = await collection.findOne({
+        _id: new Object(symbol as string),
+      });
       res.status(200).json(result ? result.data : {});
     } else {
       res.setHeader("Allow", ["POST", "GET", "PUT"]);
