@@ -1,7 +1,7 @@
 // utils/pricer_Black76.ts
 
 import { DateTime } from "luxon";
-import * as math from "mathjs";
+import math from "mathjs";
 import { brent } from "./brent";
 
 class Pricer_Black76 {
