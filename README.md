@@ -45,5 +45,5 @@ mathjs: For advanced mathematical functions.
 brent: A custom implementation of Brent's method for root-finding.
 Make sure to install these packages in your project.
 
-License
+## License
 This project is licensed under the MIT License.

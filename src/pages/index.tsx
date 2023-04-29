@@ -151,12 +151,14 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-center text-4xl font-bold">Option Pricing</h1>
+      <h1 className="text-center text-4xl font-bold mb-6">Option Pricing</h1>
       {/* Upload market data */}
-      <div className="glass my-4">
-        <h2 className="text-2xl font-bold">Enter Market Data (JSON format)</h2>
+      <div className="glass my-4 p-4 bg-white bg-opacity-50 backdrop-blur-md rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-2">
+          Enter Market Data (JSON format)
+        </h2>
         <textarea
-          className="w-full h-64 p-2 my-2 border text-black border-gray-300 rounded-lg"
+          className="w-full h-64 p-2 my-2 border text-black border-gray-300 rounded-lg resize-none"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
         ></textarea>
